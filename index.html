@@ -474,8 +474,24 @@
                 <h2>Who are you traveling with?</h2>
                 <div class="preferences-options" data-preference-group="traveler">
                     <button class="preference-button" data-value="adventurer">Adventurer</button>
-                    <button class="preference-button" data-value="family">Family Traveler</button>
+                    <button class="preference-button" data-value="couples">Couples</button>
                     <button class="preference-button" data-value="budget">Budget Explorer</button>
+                </div>
+            </div>
+            
+            <div class="preferences-section">
+                <h2>What's your environment preference?</h2>
+                <div class="preferences-options" data-preference-group="environment">
+                    <button class="preference-button" data-value="city">City</button>
+                    <button class="preference-button" data-value="nature">Nature</button>
+                </div>
+            </div>
+
+            <div class="preferences-section">
+                <h2>Activity Level?</h2>
+                <div class="preferences-options" data-preference-group="activity">
+                    <button class="preference-button" data-value="active">Active</button>
+                    <button class="preference-button" data-value="relaxed">Relaxed</button>
                 </div>
             </div>
             
@@ -519,7 +535,7 @@
                 });
 
                 // Validate preferences
-                if (!preferences.budget || !preferences.traveler) {
+                if (!preferences.budget || !preferences.traveler || !preferences.environment || !preferences.activity) {
                     alert('Please select all preferences');
                     return;
                 }
@@ -586,8 +602,8 @@
 
                 // Optionally, add a "Save Plan" button
                 const saveButton = document.createElement('button');
-                saveButton.textContent = 'Save Your Plan';
-                saveButton.classList.add('save-plan-button');
+                saveButton.textContent = 'Reserve';
+                saveButton.classList.add('reserve-button');
                 saveButton.addEventListener('click', () => {
                     // Collect selected activities
                     const selectedActivities = [];
@@ -600,7 +616,7 @@
 
                     // Display or process the selected activities
                     console.log('Selected Activities:', selectedActivities);
-                    alert('Your plan has been saved! Check the console for details.');
+                    alert('Your plan has been Reserved!');
                 });
 
                 responseContainer.appendChild(saveButton);

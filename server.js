@@ -22,6 +22,7 @@ app.post('/plan-trip', async (req, res) => {
     // Construct the prompt based on user input
     const prompt = `As a travel planner, create three different plans for the morning, afternoon, and evening in ${destination}. 
 The traveler prefers a ${preferences.budget} budget and is traveling as a ${preferences.traveler}.
+They prefer ${preferences.environment} environments and want a ${preferences.activity} experience.
 
 Provide the response as a JSON object with the following structure (note: no trailing commas):
 
@@ -43,7 +44,7 @@ Provide the response as a JSON object with the following structure (note: no tra
   ]
 }
 
-Important: Do not include trailing commas after the last item in arrays. Ensure the response is valid JSON format.`;
+Important: Ensure activities match the traveler's ${preferences.environment} preference and ${preferences.activity} activity level. Do not include trailing commas after the last item in arrays. Ensure the response is valid JSON format.`;
 
     try {
         const completion = await openai.chat.completions.create({
