@@ -23,27 +23,27 @@ app.post('/plan-trip', async (req, res) => {
     const prompt = `As a travel planner, create three different plans for the morning, afternoon, and evening in ${destination}. 
 The traveler prefers a ${preferences.budget} budget and is traveling as a ${preferences.traveler}.
 
-Provide the response as a JSON object with the following structure:
+Provide the response as a JSON object with the following structure (note: no trailing commas):
 
 {
   "morning": [
-    {"title": "Activity Title", "description": "Brief description"},
-    {"title": "Activity Title", "description": "Brief description"},
-    {"title": "Activity Title", "description": "Brief description"}
+    {"title": "Activity 1", "description": "Description 1"},
+    {"title": "Activity 2", "description": "Description 2"},
+    {"title": "Activity 3", "description": "Description 3"}
   ],
   "afternoon": [
-    {"title": "Activity Title", "description": "Brief description"},
-    {"title": "Activity Title", "description": "Brief description"},
-    {"title": "Activity Title", "description": "Brief description"}
+    {"title": "Activity 1", "description": "Description 1"},
+    {"title": "Activity 2", "description": "Description 2"},
+    {"title": "Activity 3", "description": "Description 3"}
   ],
   "evening": [
-    {"title": "Activity Title", "description": "Brief description"},
-    {"title": "Activity Title", "description": "Brief description"},
-    {"title": "Activity Title", "description": "Brief description"}
+    {"title": "Activity 1", "description": "Description 1"},
+    {"title": "Activity 2", "description": "Description 2"},
+    {"title": "Activity 3", "description": "Description 3"}
   ]
 }
 
-Ensure that the response is valid JSON and does not include any additional text or formatting outside of the JSON object.`;
+Important: Do not include trailing commas after the last item in arrays. Ensure the response is valid JSON format.`;
 
     try {
         const completion = await openai.chat.completions.create({
