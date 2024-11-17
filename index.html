@@ -580,18 +580,23 @@
                     return;
                 }
 
+                // Collect preferences more safely
                 const preferences = {
-                    budget: document.getElementById('budget-slider').value,
-                    traveler: document.querySelector('.preference-button.selected[data-value="adventurer"]').dataset.value,
-                    environment: document.querySelector('.preference-button.selected[data-value="city"]').dataset.value,
-                    activity: document.querySelector('.preference-button.selected[data-value="active"]').dataset.value
+                    budget: document.getElementById('budget-slider').value
                 };
 
-                // Validate preferences
-                if (!preferences.budget || !preferences.traveler || !preferences.environment || !preferences.activity) {
-                    alert('Please select all preferences');
-                    return;
+                // Collect other preferences with error checking
+                const groups = ['traveler', 'environment', 'activity'];
+                for (const group of groups) {
+                    const selected = document.querySelector(`.preferences-options[data-preference-group="${group}"] .preference-button.selected`);
+                    if (!selected) {
+                        alert(`Please select a ${group} preference`);
+                        return;
+                    }
+                    preferences[group] = selected.dataset.value;
                 }
+
+                console.log('Sending preferences:', preferences); // Debug log
 
                 const response = await fetch('https://adventura-70fm.onrender.com/plan-trip', {
                     method: 'POST',
@@ -602,10 +607,16 @@
                 });
 
                 if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('Server response:', errorText);
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
 
                 const result = await response.json();
+                
+                if (!result.plan) {
+                    throw new Error('No plan received from server');
+                }
 
                 const plan = result.plan;
                 const responseContainer = document.getElementById('response-container');

@@ -17,10 +17,24 @@ app.use(bodyParser.json());
 
 // Endpoint to handle trip planning
 app.post('/plan-trip', async (req, res) => {
-    const { destination, preferences } = req.body;
+    try {
+        const { destination, preferences } = req.body;
+        
+        // Validate incoming data
+        if (!destination || !preferences) {
+            return res.status(400).json({ error: 'Missing destination or preferences' });
+        }
 
-    // Construct the prompt based on user input
-    const prompt = `As a travel planner, create three different plans for the morning, afternoon, and evening in ${destination}. 
+        // Validate required preferences
+        const requiredPrefs = ['budget', 'traveler', 'environment', 'activity'];
+        for (const pref of requiredPrefs) {
+            if (!preferences[pref]) {
+                return res.status(400).json({ error: `Missing ${pref} preference` });
+            }
+        }
+
+        // Construct the prompt based on user input
+        const prompt = `As a travel planner, create three different plans for the morning, afternoon, and evening in ${destination}. 
 The traveler has a budget of $${preferences.budget} per day and is traveling as a ${preferences.traveler}.
 They prefer ${preferences.environment === 'both' ? 'a mix of city and nature' : preferences.environment} environments and want a ${preferences.activity} experience.
 
@@ -46,7 +60,8 @@ Provide the response as a JSON object with the following structure (note: no tra
 
 Important: Ensure activities match the traveler's ${preferences.environment} preference and ${preferences.activity} activity level. Do not include trailing commas after the last item in arrays. Ensure the response is valid JSON format.`;
 
-    try {
+        console.log('Processing request for:', destination); // Debug log
+
         const completion = await openai.chat.completions.create({
             model: 'gpt-3.5-turbo',
             messages: [
