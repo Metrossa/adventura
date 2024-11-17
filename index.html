@@ -290,6 +290,150 @@
         margin-left: auto;
         margin-right: auto;
     }
+
+    /* Navigation responsive styles */
+    @media (max-width: 768px) {
+        nav {
+            flex-direction: column;
+            padding: 1rem;
+            gap: 1rem;
+        }
+
+        .nav-links {
+            display: none; /* Hide nav links on mobile */
+        }
+
+        .search-container {
+            width: 100%;
+            margin: 0;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .search-bar {
+            width: 100%;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 0.5rem;
+            width: 100%;
+        }
+
+        .auth-buttons button {
+            flex: 1;
+        }
+    }
+
+    /* Hero section responsive styles */
+    @media (max-width: 768px) {
+        .background {
+            padding: 1.5rem;
+            margin: 1rem;
+            min-height: 300px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-box {
+            flex-direction: column;
+            padding: 0.5rem;
+        }
+
+        .search-box input {
+            width: 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        .preferences-section {
+            padding: 1rem;
+        }
+
+        .preferences-options {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .preference-button {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    /* Activity cards responsive styles */
+    @media (max-width: 768px) {
+        .container {
+            padding: 0 1rem;
+        }
+
+        .response-container {
+            padding: 0 1rem;
+        }
+
+        .activities-container {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .activity-card {
+            flex: 1 1 100%;
+            margin-bottom: 0.5rem;
+        }
+
+        .plan-time-section h2 {
+            font-size: 1.5rem;
+        }
+
+        .activity-card h3 {
+            font-size: 1.2rem;
+        }
+
+        .save-plan-button {
+            width: 100%;
+            max-width: none;
+            margin: 1rem 0;
+        }
+    }
+
+    /* General responsive improvements */
+    @media (max-width: 768px) {
+        .plan-section {
+            padding: 1rem;
+        }
+
+        .plan-section h2 {
+            font-size: 1.5rem;
+        }
+
+        .plan-section h3 {
+            font-size: 1.2rem;
+        }
+
+        .plan-section p {
+            font-size: 0.9rem;
+        }
+    }
+
+    /* Add smooth transitions for better UX */
+    .activity-card, .preference-button, .search-box, .background {
+        transition: all 0.3s ease;
+    }
+
+    /* Improve touch targets on mobile */
+    @media (max-width: 768px) {
+        button, 
+        .activity-card,
+        .preference-button {
+            min-height: 44px; /* Minimum touch target size */
+        }
+
+        input {
+            font-size: 16px; /* Prevent zoom on input focus in iOS */
+        }
+    }
 </style>
 </head>
 <body>
