@@ -434,6 +434,56 @@
             font-size: 16px; /* Prevent zoom on input focus in iOS */
         }
     }
+
+    /* Add these styles in your <style> section */
+    .slider-container {
+        width: 100%;
+        padding: 1rem 0;
+    }
+
+    .custom-slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 8px;
+        border-radius: 4px;
+        background: #ddd;
+        outline: none;
+    }
+
+    .custom-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: #f47521;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .custom-slider::-webkit-slider-thumb:hover {
+        transform: scale(1.1);
+    }
+
+    .slider-value {
+        text-align: center;
+        font-size: 1.2rem;
+        color: #f47521;
+        font-weight: bold;
+        margin-top: 1rem;
+    }
+
+    /* Mobile responsiveness for slider */
+    @media (max-width: 768px) {
+        .custom-slider {
+            height: 10px;
+        }
+        
+        .custom-slider::-webkit-slider-thumb {
+            width: 28px;
+            height: 28px;
+        }
+    }
 </style>
 </head>
 <body>
@@ -462,11 +512,16 @@
             </div>
             
             <div class="preferences-section">
-                <h2>Set your travel preferences</h2>
-                <div class="preferences-options" data-preference-group="budget">
-                    <button class="preference-button" data-value="economy">Economy</button>
-                    <button class="preference-button" data-value="moderate">Moderate</button>
-                    <button class="preference-button" data-value="luxury">Luxury</button>
+                <h2>What's your budget per day?</h2>
+                <div class="slider-container">
+                    <input type="range" 
+                           id="budget-slider" 
+                           min="50" 
+                           max="1000" 
+                           step="50" 
+                           value="200"
+                           class="custom-slider">
+                    <div class="slider-value">$<span id="budget-value">200</span></div>
                 </div>
             </div>
             
@@ -524,15 +579,12 @@
                     return;
                 }
 
-                const preferences = {};
-                document.querySelectorAll('.preferences-options').forEach(group => {
-                    const selectedButton = group.querySelector('.preference-button.selected');
-                    if (selectedButton) {
-                        const groupName = group.dataset.preferenceGroup;
-                        const selectedValue = selectedButton.dataset.value;
-                        preferences[groupName] = selectedValue;
-                    }
-                });
+                const preferences = {
+                    budget: document.getElementById('budget-slider').value,
+                    traveler: document.querySelector('.preference-button.selected[data-value="adventurer"]').dataset.value,
+                    environment: document.querySelector('.preference-button.selected[data-value="city"]').dataset.value,
+                    activity: document.querySelector('.preference-button.selected[data-value="active"]').dataset.value
+                };
 
                 // Validate preferences
                 if (!preferences.budget || !preferences.traveler || !preferences.environment || !preferences.activity) {
@@ -625,6 +677,14 @@
                 console.error('Error:', error);
                 alert('Something went wrong. Please try again later.');
             }
+        });
+
+        // Add slider value update
+        const budgetSlider = document.getElementById('budget-slider');
+        const budgetValue = document.getElementById('budget-value');
+        
+        budgetSlider.addEventListener('input', () => {
+            budgetValue.textContent = budgetSlider.value;
         });
     </script>
 </body>

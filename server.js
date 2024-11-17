@@ -21,7 +21,7 @@ app.post('/plan-trip', async (req, res) => {
 
     // Construct the prompt based on user input
     const prompt = `As a travel planner, create three different plans for the morning, afternoon, and evening in ${destination}. 
-The traveler prefers a ${preferences.budget} budget and is traveling as a ${preferences.traveler}.
+The traveler has a budget of $${preferences.budget} per day and is traveling as a ${preferences.traveler}.
 They prefer ${preferences.environment} environments and want a ${preferences.activity} experience.
 
 Provide the response as a JSON object with the following structure (note: no trailing commas):
