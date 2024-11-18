@@ -90,14 +90,23 @@
         width: 100%;
     }
 
+    .search-area {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto 3rem auto;
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
+    }
+
     .search-box {
         background: white;
         border-radius: 50px;
         padding: 0.5rem;
         display: flex;
-        width: 100%;
+        flex: 1;
         max-width: 600px;
-        margin: 0 auto 3rem auto;
     }
 
     .search-box input {
@@ -114,6 +123,30 @@
         padding: 0.8rem 2rem;
         border-radius: 50px;
         cursor: pointer;
+    }
+
+    .nearby-button {
+        background: #f47521;
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.2s ease;
+        font-size: 1rem;
+        white-space: nowrap;
+    }
+
+    .nearby-button:hover {
+        background: #e56b1f;
+        transform: translateY(-1px);
+    }
+
+    .nearby-icon {
+        font-size: 1.2rem;
     }
 
     /* Preferences sections */
@@ -511,6 +544,47 @@
             height: 28px;
         }
     }
+
+    /* Add these styles in your <style> section */
+    .nearby-button {
+        background: #f47521;
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition: all 0.2s ease;
+        font-size: 1rem;
+    }
+
+    .nearby-button:hover {
+        background: #e56b1f;
+        transform: translateY(-1px);
+    }
+
+    .nearby-icon {
+        font-size: 1.2rem;
+    }
+
+    /* Update mobile responsiveness */
+    @media (max-width: 768px) {
+        .search-area {
+            flex-direction: column;
+            padding: 0 1rem;
+        }
+
+        .search-box {
+            width: 100%;
+        }
+
+        .nearby-button {
+            width: 100%;
+            justify-content: center;
+        }
+    }
 </style>
 </head>
 <body>
@@ -534,8 +608,14 @@
     <div class="container">
         <div class="background">
             <h1>Discover the world's best adventures</h1>
-            <div class="search-box">
-                <input type="text" id="destination-input" placeholder="Enter your destination...">
+            <div class="search-area">
+                <div class="search-box">
+                    <input type="text" id="destination-input" placeholder="Enter your destination...">
+                </div>
+                <button class="nearby-button">
+                    <span class="nearby-icon">📍</span>
+                    Things around me
+                </button>
             </div>
             
             <div class="preferences-section">
